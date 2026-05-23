@@ -1,0 +1,143 @@
+{
+  "model": "M3GNet-MP-2021.2.8-EFS",
+  "results": [
+    {
+      "material": "Cu (FCC)",
+      "offset": "+5%",
+      "a_MP": 3.62126,
+      "a_offset": 3.802323,
+      "a_relaxed": 3.612734505125912,
+      "E_ref_per_atom_eV": -4.090590476989746,
+      "E_direct_per_atom_eV": -3.9724864959716797,
+      "E_relaxed_per_atom_eV": -4.090929985046387,
+      "err_direct_meV": 118.1039810180664,
+      "err_relaxed_meV": -0.339508056640625,
+      "improvement_ratio": 347.8679775280899
+    },
+    {
+      "material": "Cu (FCC)",
+      "offset": "-5%",
+      "a_MP": 3.62126,
+      "a_offset": 3.440197,
+      "a_relaxed": 3.612251835981049,
+      "E_ref_per_atom_eV": -4.090590476989746,
+      "E_direct_per_atom_eV": -3.9446935653686523,
+      "E_relaxed_per_atom_eV": -4.0909295082092285,
+      "err_direct_meV": 145.89691162109375,
+      "err_relaxed_meV": -0.3390312194824219,
+      "improvement_ratio": 430.33473980309424
+    },
+    {
+      "material": "Ni (FCC)",
+      "offset": "+5%",
+      "a_MP": 3.5058,
+      "a_offset": 3.6810899999999998,
+      "a_relaxed": 3.508684325216707,
+      "E_ref_per_atom_eV": -5.767877101898193,
+      "E_direct_per_atom_eV": -5.639664649963379,
+      "E_relaxed_per_atom_eV": -5.767914772033691,
+      "err_direct_meV": 128.21245193481445,
+      "err_relaxed_meV": -0.037670135498046875,
+      "improvement_ratio": 3403.5569620253164
+    },
+    {
+      "material": "Ni (FCC)",
+      "offset": "-5%",
+      "a_MP": 3.5058,
+      "a_offset": 3.33051,
+      "a_relaxed": 3.5087129143804097,
+      "E_ref_per_atom_eV": -5.767877101898193,
+      "E_direct_per_atom_eV": -5.544281959533691,
+      "E_relaxed_per_atom_eV": -5.767913818359375,
+      "err_direct_meV": 223.59514236450195,
+      "err_relaxed_meV": -0.036716461181640625,
+      "improvement_ratio": 6089.779220779221
+    },
+    {
+      "material": "Mo (BCC)",
+      "offset": "+5%",
+      "a_MP": 3.16762,
+      "a_offset": 3.326001,
+      "a_relaxed": 3.1681918397474758,
+      "E_ref_per_atom_eV": -10.85920524597168,
+      "E_direct_per_atom_eV": -10.583839416503906,
+      "E_relaxed_per_atom_eV": -10.85920524597168,
+      "err_direct_meV": 275.36582946777344,
+      "err_relaxed_meV": 0.0,
+      "improvement_ratio": Infinity
+    },
+    {
+      "material": "Mo (BCC)",
+      "offset": "-5%",
+      "a_MP": 3.16762,
+      "a_offset": 3.0092389999999996,
+      "a_relaxed": 3.1677846610086497,
+      "E_ref_per_atom_eV": -10.85920524597168,
+      "E_direct_per_atom_eV": -10.542363166809082,
+      "E_relaxed_per_atom_eV": -10.85920524597168,
+      "err_direct_meV": 316.84207916259766,
+      "err_relaxed_meV": 0.0,
+      "improvement_ratio": Infinity
+    },
+    {
+      "material": "Al (FCC)",
+      "offset": "+5%",
+      "a_MP": 4.0396,
+      "a_offset": 4.24158,
+      "a_relaxed": 4.044554726438545,
+      "E_ref_per_atom_eV": -3.742058515548706,
+      "E_direct_per_atom_eV": -3.7057669162750244,
+      "E_relaxed_per_atom_eV": -3.742091178894043,
+      "err_direct_meV": 36.29159927368164,
+      "err_relaxed_meV": -0.03266334533691406,
+      "improvement_ratio": 1111.0802919708028
+    },
+    {
+      "material": "Al (FCC)",
+      "offset": "-5%",
+      "a_MP": 4.0396,
+      "a_offset": 3.83762,
+      "a_relaxed": 4.044970903401371,
+      "E_ref_per_atom_eV": -3.742058515548706,
+      "E_direct_per_atom_eV": -3.6553521156311035,
+      "E_relaxed_per_atom_eV": -3.742091655731201,
+      "err_direct_meV": 86.70639991760254,
+      "err_relaxed_meV": -0.03314018249511719,
+      "improvement_ratio": 2616.3525179856115
+    },
+    {
+      "material": "Li (BCC)",
+      "offset": "+5%",
+      "a_MP": 3.42682,
+      "a_offset": 3.598161,
+      "a_relaxed": 3.418646785818694,
+      "E_ref_per_atom_eV": -1.902572751045227,
+      "E_direct_per_atom_eV": -1.8881891965866089,
+      "E_relaxed_per_atom_eV": -1.9025934934616089,
+      "err_direct_meV": 14.383554458618164,
+      "err_relaxed_meV": -0.020742416381835938,
+      "improvement_ratio": 693.4367816091954
+    },
+    {
+      "material": "Li (BCC)",
+      "offset": "-5%",
+      "a_MP": 3.42682,
+      "a_offset": 3.2554790000000002,
+      "a_relaxed": 3.424463428805521,
+      "E_ref_per_atom_eV": -1.902572751045227,
+      "E_direct_per_atom_eV": -1.880652666091919,
+      "E_relaxed_per_atom_eV": -1.902586817741394,
+      "err_direct_meV": 21.920084953308105,
+      "err_relaxed_meV": -0.014066696166992188,
+      "improvement_ratio": 1558.2966101694915
+    }
+  ],
+  "summary": {
+    "mean_err_direct_meV": 136.7318034172058,
+    "mean_err_relaxed_meV": 0.08535385131835938,
+    "improvement_ratio_mean": 2031.3381377338528,
+    "improvement_ratio_median": 1334.688451070147,
+    "improvement_ratio_min": 347.8679775280899,
+    "H2_confirmed": true
+  }
+}

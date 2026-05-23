@@ -1,0 +1,57 @@
+{
+  "model": "M3GNet-MP-2021.2.8-EFS",
+  "checkpoint": "/Users/ahahac_be3_xboctuka/Documents/AIRI/m3gnet-main/pretrained/MP-2021.2.8-EFS",
+  "load_time_s": 0.5931329727172852,
+  "results": [
+    {
+      "name": "Si (diamond)",
+      "n_atoms": 8,
+      "formula": "Si",
+      "lattice_a": 5.469,
+      "energy_eV": -42.869110107421875,
+      "energy_eV_per_atom": -5.358638763427734,
+      "fmax_eV_per_A": 3.2267564620269695e-07,
+      "inference_time_s": 0.0004699230194091797
+    },
+    {
+      "name": "Cu (FCC)",
+      "n_atoms": 4,
+      "formula": "Cu",
+      "lattice_a": 3.621,
+      "energy_eV": -16.362442016601562,
+      "energy_eV_per_atom": -4.090610504150391,
+      "fmax_eV_per_A": 4.7817124482207873e-08,
+      "inference_time_s": 0.0003058910369873047
+    },
+    {
+      "name": "Ni (FCC)",
+      "n_atoms": 4,
+      "formula": "Ni",
+      "lattice_a": 3.506,
+      "energy_eV": -23.0715274810791,
+      "energy_eV_per_atom": -5.767881870269775,
+      "fmax_eV_per_A": 8.598987477625997e-08,
+      "inference_time_s": 0.00023484230041503906
+    },
+    {
+      "name": "LiF (halite)",
+      "n_atoms": 8,
+      "formula": "LiF",
+      "lattice_a": 4.083,
+      "energy_eV": -38.70070266723633,
+      "energy_eV_per_atom": -4.837587833404541,
+      "fmax_eV_per_A": 2.8196819812364993e-07,
+      "inference_time_s": 0.00027108192443847656
+    },
+    {
+      "name": "Mo (BCC)",
+      "n_atoms": 2,
+      "formula": "Mo",
+      "lattice_a": 3.168,
+      "energy_eV": -21.718414306640625,
+      "energy_eV_per_atom": -10.859207153320312,
+      "fmax_eV_per_A": 2.1670817318408808e-07,
+      "inference_time_s": 0.00025177001953125
+    }
+  ]
+}

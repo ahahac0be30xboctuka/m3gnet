@@ -1,0 +1,150 @@
+{
+  "model": "M3GNet-MP-2021.2.8-EFS",
+  "materials": [
+    {
+      "class": "metal",
+      "material": "Cu (FCC)",
+      "mp_id": "mp-30",
+      "a_MP": 3.62126,
+      "a_relaxed": 3.6123975602307903,
+      "rel_dev_percent": 0.24473359463859654,
+      "abs_dev_A": 0.00886243976920964,
+      "time_s": 5.210474014282227
+    },
+    {
+      "class": "metal",
+      "material": "Ni (FCC)",
+      "mp_id": "mp-23",
+      "a_MP": 3.5058,
+      "a_relaxed": 3.5086772336214556,
+      "rel_dev_percent": 0.08207067207073293,
+      "abs_dev_A": 0.002877233621455755,
+      "time_s": 3.422761917114258
+    },
+    {
+      "class": "metal",
+      "material": "Mo (BCC)",
+      "mp_id": "mp-129",
+      "a_MP": 3.16762,
+      "a_relaxed": 3.1682224875365854,
+      "rel_dev_percent": 0.01902019612786694,
+      "abs_dev_A": 0.0006024875365855387,
+      "time_s": 2.9614078998565674
+    },
+    {
+      "class": "metal",
+      "material": "Al (FCC)",
+      "mp_id": "mp-134",
+      "a_MP": 4.0396,
+      "a_relaxed": 4.046406804561953,
+      "rel_dev_percent": 0.16850194479535474,
+      "abs_dev_A": 0.00680680456195315,
+      "time_s": 0.9689900875091553
+    },
+    {
+      "class": "covalent",
+      "material": "Si (dia)",
+      "mp_id": "mp-149",
+      "a_MP": 5.46873,
+      "a_relaxed": 5.4494296841195835,
+      "rel_dev_percent": 0.35292135249713125,
+      "abs_dev_A": 0.019300315880416363,
+      "time_s": 2.2623937129974365
+    },
+    {
+      "class": "covalent",
+      "material": "Ge (dia)",
+      "mp_id": "mp-32",
+      "a_MP": 5.7677,
+      "a_relaxed": 5.7686811825833635,
+      "rel_dev_percent": 0.01701167854368088,
+      "abs_dev_A": 0.000981182583363882,
+      "time_s": 0.659329891204834
+    },
+    {
+      "class": "covalent",
+      "material": "C (dia)",
+      "mp_id": "mp-66",
+      "a_MP": 3.5687,
+      "a_relaxed": 3.5718610087838445,
+      "rel_dev_percent": 0.08857591794895306,
+      "abs_dev_A": 0.003161008783844288,
+      "time_s": 2.2902698516845703
+    },
+    {
+      "class": "covalent",
+      "material": "SiC (zb)",
+      "mp_id": "mp-8062",
+      "a_MP": 4.3815,
+      "a_relaxed": 4.377779258097801,
+      "rel_dev_percent": 0.08491936328195213,
+      "abs_dev_A": 0.003720741902198732,
+      "time_s": 1.9635450839996338
+    },
+    {
+      "class": "ionic",
+      "material": "LiF (rs)",
+      "mp_id": "mp-1138",
+      "a_MP": 4.083,
+      "a_relaxed": 4.088024607883589,
+      "rel_dev_percent": 0.12306166748930919,
+      "abs_dev_A": 0.005024607883588494,
+      "time_s": 1.1249160766601562
+    },
+    {
+      "class": "ionic",
+      "material": "NaCl (rs)",
+      "mp_id": "mp-22862",
+      "a_MP": 5.692,
+      "a_relaxed": 5.695605237419887,
+      "rel_dev_percent": 0.06333867568318201,
+      "abs_dev_A": 0.00360523741988672,
+      "time_s": 1.09995698928833
+    },
+    {
+      "class": "ionic",
+      "material": "MgO (rs)",
+      "mp_id": "mp-1265",
+      "a_MP": 4.252,
+      "a_relaxed": 4.256334238124389,
+      "rel_dev_percent": 0.10193410452468486,
+      "abs_dev_A": 0.0043342381243896,
+      "time_s": 1.5093533992767334
+    },
+    {
+      "class": "ionic",
+      "material": "KCl (rs)",
+      "mp_id": "mp-23193",
+      "a_MP": 6.394,
+      "a_relaxed": 6.394,
+      "rel_dev_percent": 0.0,
+      "abs_dev_A": 0.0,
+      "time_s": 0.5940089225769043
+    }
+  ],
+  "summary_by_class": {
+    "metal": {
+      "mean_rel_dev_pct": 0.12858160190813778,
+      "std_rel_dev_pct": 0.08551591580281807,
+      "max_rel_dev_pct": 0.24473359463859654,
+      "N": 4
+    },
+    "covalent": {
+      "mean_rel_dev_pct": 0.13585707806792932,
+      "std_rel_dev_pct": 0.12852167824083993,
+      "max_rel_dev_pct": 0.35292135249713125,
+      "N": 4
+    },
+    "ionic": {
+      "mean_rel_dev_pct": 0.07208361192429402,
+      "std_rel_dev_pct": 0.0468036726005265,
+      "max_rel_dev_pct": 0.12306166748930919,
+      "N": 4
+    }
+  },
+  "ratios": {
+    "covalent_over_metal": 1.0565825596494696,
+    "ionic_over_metal": 0.560605956486625
+  },
+  "H1_verdict": []
+}

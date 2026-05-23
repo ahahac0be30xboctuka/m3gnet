@@ -1,0 +1,23 @@
+{
+  "model": "M3GNet-MP-2021.2.8-EFS",
+  "checkpoint": "/Users/ahahac_be3_xboctuka/Documents/AIRI/m3gnet-main/pretrained/MP-2021.2.8-EFS",
+  "test1_Mo_stretched": {
+    "n_atoms": 2,
+    "a_init_A": 3.3,
+    "a_final_A": 3.167875482290275,
+    "a_mp_ref_A": 3.16762,
+    "e_init_eV_per_atom": -10.665352821350098,
+    "e_final_eV_per_atom": -10.85920524597168,
+    "fmax_init_eV_per_A": 1.0953009166314587e-07,
+    "steps": 39,
+    "time_s": 4.300361156463623
+  },
+  "test2_Mo_supercell_perturbed": {
+    "n_atoms": 16,
+    "e_init_eV_per_atom": -10.64764404296875,
+    "e_final_eV_per_atom": -10.859197616577148,
+    "fmax_init_eV_per_A": 0.6329129338264465,
+    "steps": 343,
+    "time_s": 37.19160294532776
+  }
+}
