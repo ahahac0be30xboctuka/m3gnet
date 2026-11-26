@@ -1,43 +1,43 @@
-# Stress-testing M3GNet near equilibrium
+# Проверка M3GNet вблизи равновесия
 
-An independent experimental study of a pretrained interatomic potential. **How does M3GNet respond to lattice strain, and how close do relaxed lattices stay to their references across bonding classes?** I designed two comparisons that address these questions while keeping the published `M3GNet-MP-2021.2.8-EFS` checkpoint fixed. [Original M3GNet paper](https://doi.org/10.1038/s43588-022-00349-3)
+Самостоятельное исследование предобученного межатомного потенциала. **Как M3GNet реагирует на деформацию решётки и насколько близки параметры решётки после релаксации к эталонным для разных типов связи?** Для ответа я спроектировал два эксперимента с фиксированными весами опубликованной модели `M3GNet-MP-2021.2.8-EFS`. [Статья о M3GNet](https://doi.org/10.1038/s43588-022-00349-3)
 
-[Experiment protocol](scripts/README.md) · [Lattice results](scripts/expC_classes_results.json) · [Strain results](scripts/expD_prerelax_results.json)
+[Протокол экспериментов](scripts/README.md) · [Результаты по типам связи](scripts/expC_classes_results.json) · [Результаты при деформации](scripts/expD_prerelax_results.json)
 
-## Findings
+## Результаты
 
-### Cubic lattices stayed close to their reference values
+### Параметры кубических решёток после релаксации остались близки к эталонным
 
-I relaxed 12 cubic crystals from their Materials Project lattice parameters and measured how far each lattice moved. Metals and covalent crystals had similar mean deviations, and ionic crystals had the smallest mean on this panel.
+Я взял 12 кубических кристаллов, запустил релаксацию с параметров решётки из Materials Project и измерил относительное отклонение от исходных значений. У металлов и ковалентных кристаллов средние отклонения оказались близкими, а наименьшее среднее в этой выборке получилось у ионных кристаллов.
 
-| Bonding class | Crystals | Mean relative lattice deviation | Largest deviation |
+| Тип связи | Кристаллов | Среднее относительное отклонение | Максимальное отклонение |
 | :--- | ---: | ---: | ---: |
-| Metallic | 4 | 0.129% | 0.245% |
-| Covalent | 4 | 0.136% | 0.353% |
-| Ionic | 4 | 0.072% | 0.123% |
+| Металлическая | 4 | 0,129 % | 0,245 % |
+| Ковалентная | 4 | 0,136 % | 0,353 % |
+| Ионная | 4 | 0,072 % | 0,123 % |
 
-This panel gives no clear support for the hypothesis that metals stay closer to their reference lattices. Each relaxation starts at the reference lattice, so the comparison probes local behavior on four examples per class. [Per-crystal data and Materials Project IDs](scripts/expC_classes_results.json)
+Гипотеза о меньшем отклонении для металлов не получила явного подтверждения. В каждой группе было четыре кристалла, и релаксация начиналась с эталонного параметра решётки. Результат характеризует поведение модели вблизи этих исходных структур. [Результаты по кристаллам и идентификаторы Materials Project](scripts/expC_classes_results.json)
 
-### Relaxation removed most of the energy deviation induced by strain
+### Релаксация устранила большую часть отклонения энергии, вызванного деформацией
 
-I applied ±5% isotropic lattice strain to Cu, Ni, Mo, Al, and Li. For each of the ten strained cells, I compared the predicted energy before and after relaxation with the energy that **the same checkpoint** assigns to the reference geometry.
+Я изотропно изменил параметр решётки на ±5 % у Cu, Ni, Mo, Al и Li. Для каждой из десяти деформированных ячеек сравнил энергии до и после релаксации с энергией, которую **та же модель** предсказывает для исходной эталонной геометрии.
 
-| Geometry scored by M3GNet | Mean absolute energy deviation |
+| Геометрия, на которой M3GNet рассчитала энергию | Среднее абсолютное отклонение энергии |
 | :--- | ---: |
-| Strained cell | 136.73 meV/atom |
-| Relaxed cell | 0.085 meV/atom |
+| Деформированная ячейка | 136,73 мэВ/атом |
+| Ячейка после релаксации | 0,085 мэВ/атом |
 
-The reduction exceeded the proposed 10× threshold in all eight cases with a finite ratio. In the other two cases, both for Mo, the recorded residual was zero at the precision of the run. The result quantifies recovery of the model's reference energy within this strain sweep. Predictive accuracy would require independent energy references at matched geometries. [Per-material results and summary](scripts/expD_prerelax_results.json)
+Отклонение уменьшилось более чем в 10 раз во всех восьми случаях, где отношение удалось вычислить. В двух остальных, оба для Mo, остаточное отклонение было нулевым с точностью расчёта. Эксперимент показывает, насколько близко модель возвращается к своей оценке энергии для эталонной структуры. Чтобы оценить точность предсказаний, нужны независимые значения энергии для тех же геометрий. [Результаты по материалам и сводка](scripts/expD_prerelax_results.json)
 
-## Experimental controls
+## Контрольные эксперименты
 
-- **Force check.** Five symmetric reference cells produced maximum atomic force norms of roughly 10⁻⁸–10⁻⁷ eV/Å. Symmetry can give near-zero net forces even when the lattice parameter needs to relax. [Forces and energies](scripts/expA_results.json)
-- **Recovery from a displaced geometry.** Variable-cell relaxation took stretched BCC molybdenum from 3.300 Å to 3.16788 Å, within 0.0081% of the 3.16762 Å Materials Project reference. A displaced 16-atom supercell provides a second recovery case. [Molybdenum results](scripts/expB_results.json)
+- **Проверка сил.** У пяти симметричных эталонных ячеек максимальные нормы сил на атомах составили порядка 10⁻⁸–10⁻⁷ эВ/Å. В силу симметрии силы на атомах могут быть близки к нулю даже тогда, когда параметр решётки ещё меняется при релаксации. [Силы и энергии](scripts/expA_results.json)
+- **Восстановление геометрии молибдена.** При релаксации с изменяемой ячейкой параметр растянутой ОЦК-решётки Mo уменьшился с 3,300 до 3,16788 Å. Отклонение от эталона Materials Project (3,16762 Å) составило 0,0081 %. Дополнительно проведена релаксация 16-атомной сверхъячейки со смещёнными атомами. [Результаты для молибдена](scripts/expB_results.json)
 
-## Scope
+## Границы выводов
 
-The class comparison uses selected cubic crystals near equilibrium. It leaves performance on unseen materials, low-symmetry structures and larger deformations open. The timing stored in experiment A follows an untimed call on the same structure, so it can include cache hits. A meaningful latency benchmark would time fresh calculations after a separate model warm-up. [Experiment A code](scripts/expA_predict.py#L60-L69)
+Сравнение типов связи охватывает выбранные кубические кристаллы вблизи равновесия. Работа на новых материалах, структурах с низкой симметрией и при более сильных деформациях требует отдельных экспериментов. В эксперименте A время измеряется после первого вычисления энергии на той же структуре, поэтому результат может включать чтение из кэша. Для измерения задержки инференса нужно отдельно прогреть модель и затем засекать новые вычисления. [Код эксперимента A](scripts/expA_predict.py#L60-L69)
 
-## Reproduce the experiments
+## Как воспроизвести эксперименты
 
-The four Python scripts run independently and each writes a JSON result alongside its source. The archived outputs were collected on Apple Silicon using Python 3.10, TensorFlow 2.13 and M3GNet 0.2.4. [Environment, commands and metric definitions](scripts/README.md)
+Четыре скрипта запускаются независимо и записывают результаты в JSON рядом с исходным кодом. Сохранённые результаты получены на Apple Silicon с Python 3.10, TensorFlow 2.13 и M3GNet 0.2.4. [Окружение, команды и определения метрик](scripts/README.md)

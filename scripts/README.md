@@ -1,10 +1,10 @@
-# Experiment protocol and reproduction
+# Протокол экспериментов и запуск
 
-[Study overview](../README.md)
+[Обзор исследования](../README.md)
 
-## Environment
+## Окружение
 
-The archived runs used macOS arm64 with Python 3.10, TensorFlow 2.13.0, M3GNet 0.2.4, pymatgen 2024.2.20 and ASE 3.22.1. From a shell with Conda available, set up the Apple Silicon environment with the following commands.
+Сохранённые результаты получены на macOS arm64 с Python 3.10, TensorFlow 2.13.0, M3GNet 0.2.4, pymatgen 2024.2.20 и ASE 3.22.1. Для настройки окружения на Apple Silicon понадобится Conda.
 
 ```bash
 conda create --name m3gnet-tf python=3.10 -y
@@ -16,17 +16,17 @@ python -m pip install pymatgen==2024.2.20 ase==3.22.1 sympy==1.12
 python -m pip install "numpy<1.24" "typing-extensions<4.6"
 ```
 
-TensorFlow Metal acceleration is optional. On other platforms, use a compatible TensorFlow 2.13 installation. The repository's stored results are from the macOS setup.
+Ускорение через TensorFlow Metal опционально. На других платформах потребуется совместимая версия TensorFlow 2.13. Результаты в репозитории получены в окружении macOS.
 
-The scripts load the pretrained checkpoint by its bundled name, `MP-2021.2.8-EFS`. Set `M3GNET_CHECKPOINT` if you need to provide a different location for those weights. [Upstream checkpoint](https://github.com/materialsvirtuallab/m3gnet/tree/v0.2.4/pretrained/MP-2021.2.8-EFS)
+По умолчанию скрипты загружают предобученную модель по имени `MP-2021.2.8-EFS`. Чтобы указать путь к весам, задай переменную окружения `M3GNET_CHECKPOINT`. [Веса в оригинальном репозитории](https://github.com/materialsvirtuallab/m3gnet/tree/v0.2.4/pretrained/MP-2021.2.8-EFS)
 
 ```bash
 export M3GNET_CHECKPOINT=/path/to/MP-2021.2.8-EFS
 ```
 
-## Run the study
+## Запуск
 
-Run these commands from the repository root. Each run replaces the corresponding JSON in `scripts/`. Use a separate checkout if you want to keep the archived and new outputs side by side.
+Выполни команды из корня репозитория. Каждый скрипт перезаписывает свой файл JSON в `scripts/`. Чтобы сохранить исходные результаты для сравнения, запусти эксперименты в отдельной копии репозитория.
 
 ```bash
 python scripts/expA_predict.py
@@ -35,17 +35,17 @@ python scripts/expC_classes.py
 python scripts/expD_prerelax.py
 ```
 
-| Experiment | Inputs and comparison | Outputs |
+| Эксперимент | Входные данные и сравнение | Файлы |
 | :--- | :--- | :--- |
-| A · Force check | Si, Cu, Ni, LiF and Mo at reference lattice parameters | [Script](expA_predict.py) · [JSON](expA_results.json) |
-| B · Molybdenum recovery | BCC Mo starting at 3.3 Å and a 2×2×2 supercell with 0.1 Å positional perturbations | [Script](expB_relax.py) · [JSON](expB_results.json) |
-| C · Bonding class | Twelve cubic crystals, four per class, initialized at Materials Project lattice parameters | [Script](expC_classes.py) · [JSON](expC_classes_results.json) |
-| D · Strain and relaxation | Five metals at two isotropic lattice offsets, with direct scoring and scoring after variable-cell relaxation | [Script](expD_prerelax.py) · [JSON](expD_prerelax_results.json) |
+| A · Проверка сил | Si, Cu, Ni, LiF и Mo с эталонными параметрами решётки | [Скрипт](expA_predict.py) · [JSON](expA_results.json) |
+| B · Релаксация молибдена | ОЦК-решётка Mo с начальным параметром 3,3 Å и сверхъячейка 2×2×2 со смещениями атомов на 0,1 Å | [Скрипт](expB_relax.py) · [JSON](expB_results.json) |
+| C · Сравнение типов связи | 12 кубических кристаллов, по четыре на тип связи, с эталонными параметрами решётки из Materials Project | [Скрипт](expC_classes.py) · [JSON](expC_classes_results.json) |
+| D · Деформация и релаксация | Пять металлов с двумя изотропными деформациями решётки. Энергия рассчитывается до и после релаксации с изменяемой ячейкой. | [Скрипт](expD_prerelax.py) · [JSON](expD_prerelax_results.json) |
 
-## Metric definitions
+## Определения метрик
 
-**Experiment C.** The response is the absolute lattice deviation, `100 × abs(a_relaxed − a_MP) / a_MP`. Class-level means are descriptive. The input structures and Materials Project IDs are listed alongside the individual outcomes.
+**Эксперимент C.** Метрика — абсолютное относительное отклонение параметра решётки в процентах, `100 × abs(a_relaxed − a_MP) / a_MP`. Средние по группам описывают выбранную выборку. Исходные структуры и идентификаторы Materials Project указаны рядом с результатами по каждому кристаллу.
 
-**Experiment D.** For each material, the reference energy is the checkpoint's prediction at the reference lattice parameter. The comparison uses the absolute per-atom energy difference from that reference. The finite improvement ratios divide the direct deviation by the relaxed deviation. The script excludes near-zero denominators from its ratio summary and includes all ten cases in both mean deviations.
+**Эксперимент D.** Для каждого материала за эталон берётся энергия, которую модель предсказывает при исходном параметре решётки. Сравниваются абсолютные отклонения энергии на атом от этого эталона. Чтобы получить коэффициент улучшения, отклонение до релаксации делится на отклонение после неё. Скрипт исключает близкие к нулю знаменатели из сводки коэффициентов, а средние отклонения считает по всем десяти ячейкам.
 
-**Experiment A.** The archived timing field starts after a first energy call on the same ASE object. Treat it as a diagnostic of that execution path. The energy and maximum force norm fields are the outputs used in the study.
+**Эксперимент A.** Таймер запускается после первого запроса энергии на том же объекте ASE. Сохранённое время описывает этот сценарий выполнения. Для исследования используются значения энергии и максимальной нормы силы.
