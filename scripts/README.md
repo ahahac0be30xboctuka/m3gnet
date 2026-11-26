@@ -1,42 +1,51 @@
-# Скрипты экспериментов
+# Experiment protocol and reproduction
 
-Четыре эксперимента на предобученном чекпоинте `M3GNet-MP-2021.2.8-EFS` (тот же, что в статье). Скрипты не зависят друг от друга, запускаются в любом порядке. Каждый сохраняет рядом с собой JSON с результатами.
+[Study overview](../README.md)
 
-## Окружение (macOS arm64, Apple Silicon)
+## Environment
+
+The archived runs used macOS arm64 with Python 3.10, TensorFlow 2.13.0, M3GNet 0.2.4, pymatgen 2024.2.20 and ASE 3.22.1. From a shell with Conda available, set up the Apple Silicon environment with the following commands.
 
 ```bash
 conda create --name m3gnet-tf python=3.10 -y
 conda activate m3gnet-tf
 conda install -c apple tensorflow-deps -y
-pip install tensorflow-macos==2.13.0 tensorflow-metal
-pip install --no-deps m3gnet
-pip install pymatgen==2024.2.20 ase==3.22.1 sympy==1.12
-pip install "numpy<1.24" "typing-extensions<4.6"
+python -m pip install tensorflow-macos==2.13.0
+python -m pip install --no-deps m3gnet==0.2.4
+python -m pip install pymatgen==2024.2.20 ase==3.22.1 sympy==1.12
+python -m pip install "numpy<1.24" "typing-extensions<4.6"
 ```
 
-`tensorflow-metal` опционален (GPU-ускорение через Apple Metal). Для Linux/Windows нужно ставить обычный `tensorflow==2.13.0` вместо `tensorflow-macos`.
+TensorFlow Metal acceleration is optional. On other platforms, use a compatible TensorFlow 2.13 installation. The repository's stored results are from the macOS setup.
 
-## Чекпоинт
-
-По умолчанию `m3gnet.M3GNet.load("MP-2021.2.8-EFS")` сам скачивает веса из апстрим-репозитория [materialsvirtuallab/m3gnet](https://github.com/materialsvirtuallab/m3gnet/tree/main/pretrained/MP-2021.2.8-EFS). Если нужно явно указать локальный путь:
+The scripts load the pretrained checkpoint by its bundled name, `MP-2021.2.8-EFS`. Set `M3GNET_CHECKPOINT` if you need to provide a different location for those weights. [Upstream checkpoint](https://github.com/materialsvirtuallab/m3gnet/tree/v0.2.4/pretrained/MP-2021.2.8-EFS)
 
 ```bash
 export M3GNET_CHECKPOINT=/path/to/MP-2021.2.8-EFS
 ```
 
-## Запуск
+## Run the study
+
+Run these commands from the repository root. Each run replaces the corresponding JSON in `scripts/`. Use a separate checkout if you want to keep the archived and new outputs side by side.
 
 ```bash
-conda activate m3gnet-tf
-python expA_predict.py        # ~5 c       
-python expB_relax.py          # ~45 c      
-python expC_classes.py        # ~30 c      
-python expD_prerelax.py       # ~3 мин     
+python scripts/expA_predict.py
+python scripts/expB_relax.py
+python scripts/expC_classes.py
+python scripts/expD_prerelax.py
 ```
 
-## Что считается
+| Experiment | Inputs and comparison | Outputs |
+| :--- | :--- | :--- |
+| A · Force check | Si, Cu, Ni, LiF and Mo at reference lattice parameters | [Script](expA_predict.py) · [JSON](expA_results.json) |
+| B · Molybdenum recovery | BCC Mo starting at 3.3 Å and a 2×2×2 supercell with 0.1 Å positional perturbations | [Script](expB_relax.py) · [JSON](expB_results.json) |
+| C · Bonding class | Twelve cubic crystals, four per class, initialized at Materials Project lattice parameters | [Script](expC_classes.py) · [JSON](expC_classes_results.json) |
+| D · Strain and relaxation | Five metals at two isotropic lattice offsets, with direct scoring and scoring after variable-cell relaxation | [Script](expD_prerelax.py) · [JSON](expD_prerelax_results.json) |
 
-- **`expA_predict.py`** - энергии и силы для Si, Cu, Ni, LiF, Mo в их MP-равновесных параметрах решётки. Силы при равновесии должны быть ~$10^{-7}$ эВ/Å (численный ноль).
-- **`expB_relax.py`** - релаксация Mo BCC с растянутой решёткой $a=3.3$ Å (MP target 3.16762 Å) через FIRE + ExpCellFilter. Второй тест — $2\times2\times2$ supercell с возмущениями 0.1 Å, проверка восстановления BCC-симметрии.
-- **`expC_classes.py`** - тест гипотезы H1 «модель плохо работает для ковалентных/ионных кристаллов». 12 кубических кристаллов в 3 классах (металлы / ковалентные / ионные), сравнение средних $|\Delta a|/a$.
-- **`expD_prerelax.py`** - тест гипотезы H2 «пре-релаксация уменьшает ошибку энергии не менее чем в 10 раз». 5 металлов с решёткой $\pm 5\%$ от равновесия: прямое предсказание vs предсказание после релаксации.
+## Metric definitions
+
+**Experiment C.** The response is the absolute lattice deviation, `100 × abs(a_relaxed − a_MP) / a_MP`. Class-level means are descriptive. The input structures and Materials Project IDs are listed alongside the individual outcomes.
+
+**Experiment D.** For each material, the reference energy is the checkpoint's prediction at the reference lattice parameter. The comparison uses the absolute per-atom energy difference from that reference. The finite improvement ratios divide the direct deviation by the relaxed deviation. The script excludes near-zero denominators from its ratio summary and includes all ten cases in both mean deviations.
+
+**Experiment A.** The archived timing field starts after a first energy call on the same ASE object. Treat it as a diagnostic of that execution path. The energy and maximum force norm fields are the outputs used in the study.
